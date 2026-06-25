@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Flame, Leaf, Users } from "lucide-react";
+import { ScrollReveal } from "../components/scroll-reveal";
 import heroKebab from "../assets/hero-kebab.jpg";
 import dishBiryani from "../assets/dish-biryani.jpg";
 import dishButterChicken from "../assets/dish-butter-chicken.jpg";
@@ -88,6 +89,7 @@ function AboutPage() {
 
       {/* Origin story */}
       <section className="mx-auto grid max-w-7xl items-center gap-14 px-6 py-24 lg:grid-cols-2 lg:gap-20 lg:py-28">
+        <ScrollReveal variant="fade-right">
         <div>
           <p className="text-[10px] font-bold uppercase tracking-[0.32em] text-primary">
             Provo, Utah
@@ -126,7 +128,9 @@ function AboutPage() {
             <ArrowRight size={14} />
           </Link>
         </div>
+        </ScrollReveal>
 
+        <ScrollReveal variant="fade-left" delay={100}>
         <div className="relative mx-auto mb-16 w-full max-w-md lg:mb-0 lg:max-w-none">
           <div
             className="pointer-events-none absolute -right-3 -top-3 z-10 h-20 w-20 border-r-2 border-t-2 border-primary/70 lg:-right-4 lg:-top-4 lg:h-24 lg:w-24"
@@ -154,12 +158,13 @@ function AboutPage() {
             </div>
           </div>
         </div>
+        </ScrollReveal>
       </section>
 
       {/* Values */}
       <section className="border-y border-border bg-secondary/50 py-24 lg:py-28">
         <div className="mx-auto max-w-7xl px-6">
-          <div className="mx-auto max-w-2xl text-center">
+          <ScrollReveal className="mx-auto max-w-2xl text-center">
             <p className="text-[10px] font-bold uppercase tracking-[0.32em] text-primary">
               What We Stand For
             </p>
@@ -171,12 +176,15 @@ function AboutPage() {
               Three principles guide everything we cook — from the first marinade to the
               final garnish on your table.
             </p>
-          </div>
+          </ScrollReveal>
 
           <div className="mt-14 grid gap-6 lg:grid-cols-3">
-            {values.map((v) => (
-              <article
+            {values.map((v, i) => (
+              <ScrollReveal
                 key={v.title}
+                as="article"
+                delay={i * 100}
+                variant="fade-up"
                 className="group rounded-xl border border-border bg-card p-8 shadow-[0_4px_20px_-8px_rgba(28,21,17,0.08)] transition duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-[0_16px_40px_-12px_rgba(28,21,17,0.12)]"
               >
                 <span className="grid size-12 place-items-center rounded-lg border border-border bg-secondary text-primary transition group-hover:border-primary/30 group-hover:bg-primary/5">
@@ -188,7 +196,7 @@ function AboutPage() {
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                   {v.desc}
                 </p>
-              </article>
+              </ScrollReveal>
             ))}
           </div>
         </div>
@@ -201,6 +209,7 @@ function AboutPage() {
           aria-hidden
         />
         <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
+          <ScrollReveal variant="scale">
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="overflow-hidden rounded-xl shadow-[0_20px_48px_-16px_rgba(0,0,0,0.45)] sm:row-span-2">
               <img
@@ -232,7 +241,9 @@ function AboutPage() {
               </p>
             </div>
           </div>
+          </ScrollReveal>
 
+          <ScrollReveal variant="fade-left" delay={120}>
           <div>
             <p className="text-[10px] font-bold uppercase tracking-[0.32em] text-primary">
               Our Cuisine
@@ -267,6 +278,7 @@ function AboutPage() {
               </Link>
             </div>
           </div>
+          </ScrollReveal>
         </div>
       </section>
     </>

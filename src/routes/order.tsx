@@ -8,6 +8,7 @@ import {
   UtensilsCrossed,
   Clock,
 } from "lucide-react";
+import { ScrollReveal } from "../components/scroll-reveal";
 import dishBiryani from "../assets/dish-biryani.jpg";
 
 const ORDER_URL =
@@ -93,7 +94,7 @@ function OrderPage() {
       {/* Main */}
       <section className="bg-background py-14 lg:py-20">
         <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:gap-14">
-          <div className="space-y-6">
+          <ScrollReveal variant="fade-right" className="space-y-6">
             <div className="rounded-2xl border border-border bg-card p-8 shadow-[0_12px_48px_-16px_rgba(28,21,17,0.1)] sm:p-10">
               <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-primary">
                 Online Ordering
@@ -134,8 +135,8 @@ function OrderPage() {
 
             <div className="grid gap-4 sm:grid-cols-3">
               {steps.map((step, i) => (
+                <ScrollReveal key={step.title} delay={i * 80} variant="fade-up">
                 <div
-                  key={step.title}
                   className="rounded-xl border border-border bg-card p-5 shadow-sm"
                 >
                   <span className="text-[10px] font-bold text-primary">
@@ -149,11 +150,12 @@ function OrderPage() {
                     {step.desc}
                   </p>
                 </div>
+                </ScrollReveal>
               ))}
             </div>
-          </div>
+          </ScrollReveal>
 
-          <div className="relative">
+          <ScrollReveal variant="fade-left" delay={100} className="relative">
             <div
               className="pointer-events-none absolute -right-2 -top-2 z-10 h-16 w-16 border-r-2 border-t-2 border-primary/60 sm:-right-3 sm:-top-3 sm:h-20 sm:w-20"
               aria-hidden
@@ -181,19 +183,19 @@ function OrderPage() {
                 </p>
               </div>
             </div>
-          </div>
+          </ScrollReveal>
         </div>
       </section>
 
       {/* Hours note */}
       <section className="border-y border-border bg-secondary/40 py-10">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-3 px-6 text-center sm:gap-6">
+        <ScrollReveal className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-3 px-6 text-center sm:gap-6">
           <Clock size={18} className="text-primary" />
           <p className="text-sm font-medium text-muted-foreground">
             <span className="font-semibold text-foreground">Open daily</span> — Mon–Sat
             11 AM – 10 PM · Sunday 11 AM – 9 PM
           </p>
-        </div>
+        </ScrollReveal>
       </section>
 
       {/* CTA */}
@@ -202,7 +204,7 @@ function OrderPage() {
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_50%,rgba(197,92,38,0.12),transparent_55%)]"
           aria-hidden
         />
-        <div className="relative mx-auto max-w-2xl px-6 text-center">
+        <ScrollReveal className="relative mx-auto max-w-2xl px-6 text-center">
           <p className="text-[10px] font-bold uppercase tracking-[0.32em] text-primary">
             Explore First
           </p>
@@ -227,7 +229,7 @@ function OrderPage() {
               Contact Us
             </Link>
           </div>
-        </div>
+        </ScrollReveal>
       </section>
     </>
   );

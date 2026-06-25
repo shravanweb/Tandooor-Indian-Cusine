@@ -11,6 +11,7 @@ import {
   ShoppingBag,
   CalendarCheck,
   Tag,
+  LogIn,
   type LucideIcon,
 } from "lucide-react";
 import logo from "../assets/logo.png";
@@ -60,8 +61,19 @@ export function SiteHeader() {
 
         <div className="flex items-center gap-2">
           <Link
-            to="/order"
+            to="/login"
             className="hidden items-center gap-1.5 rounded-md border border-foreground/20 px-3.5 py-2 text-[10px] font-bold uppercase tracking-[0.16em] text-foreground transition hover:border-primary hover:text-primary sm:inline-flex"
+            activeProps={{
+              className:
+                "hidden items-center gap-1.5 rounded-md border border-primary bg-primary/5 px-3.5 py-2 text-[10px] font-bold uppercase tracking-[0.16em] text-primary sm:inline-flex",
+            }}
+          >
+            <LogIn size={13} strokeWidth={2.5} />
+            Login
+          </Link>
+          <Link
+            to="/order"
+            className="hidden items-center gap-1.5 rounded-md border border-foreground/20 px-3.5 py-2 text-[10px] font-bold uppercase tracking-[0.16em] text-foreground transition hover:border-primary hover:text-primary md:inline-flex"
           >
             <ShoppingBag size={13} strokeWidth={2.5} />
             Order
@@ -97,7 +109,16 @@ export function SiteHeader() {
                 {n.label}
               </Link>
             ))}
-            <div className="mt-3 flex gap-2 pb-2">
+            <div className="mt-3 flex flex-col gap-2 pb-2">
+              <Link
+                to="/login"
+                onClick={() => setOpen(false)}
+                className="flex items-center justify-center gap-2 rounded-md border border-border py-3 text-[10px] font-bold uppercase tracking-[0.2em]"
+              >
+                <LogIn size={14} />
+                Login
+              </Link>
+              <div className="flex gap-2">
               <Link
                 to="/order"
                 onClick={() => setOpen(false)}
@@ -114,6 +135,7 @@ export function SiteHeader() {
                 <CalendarCheck size={14} />
                 Reserve
               </Link>
+              </div>
             </div>
           </nav>
         </div>

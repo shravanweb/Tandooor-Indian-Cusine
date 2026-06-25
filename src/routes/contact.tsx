@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Phone, Check, ArrowRight, Calendar } from "lucide-react";
+import { ScrollReveal } from "../components/scroll-reveal";
 import heroKebab from "../assets/hero-kebab.jpg";
 
 export const Route = createFileRoute("/contact")({
@@ -78,8 +79,7 @@ function ContactPage() {
       <section className="bg-background py-14 lg:py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <div className="grid items-stretch gap-6 lg:grid-cols-2 lg:gap-8">
-            {/* Form */}
-            <div className="rounded-2xl border border-border bg-card p-8 shadow-[0_12px_48px_-16px_rgba(28,21,17,0.12)] sm:p-10">
+            <ScrollReveal variant="fade-right" className="rounded-2xl border border-border bg-card p-8 shadow-[0_12px_48px_-16px_rgba(28,21,17,0.12)] sm:p-10">
               {sent ? (
                 <div className="flex min-h-[24rem] flex-col items-center justify-center py-12 text-center lg:min-h-full">
                   <div className="grid size-16 place-items-center rounded-full bg-primary/10 text-primary">
@@ -162,10 +162,9 @@ function ContactPage() {
                   </button>
                 </form>
               )}
-            </div>
+            </ScrollReveal>
 
-            {/* Map */}
-            <div className="flex min-h-[22rem] flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-[0_12px_48px_-16px_rgba(28,21,17,0.12)] lg:min-h-0">
+            <ScrollReveal variant="fade-left" delay={100} className="flex min-h-[22rem] flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-[0_12px_48px_-16px_rgba(28,21,17,0.12)] lg:min-h-0">
               <div className="flex items-end justify-between gap-4 border-b border-border px-6 py-5">
                 <div>
                   <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-primary">
@@ -191,7 +190,7 @@ function ContactPage() {
                 className="min-h-[18rem] w-full flex-1 border-0"
                 loading="lazy"
               />
-            </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>

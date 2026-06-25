@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Calendar, MapPin, PartyPopper, Percent, Phone, UtensilsCrossed } from "lucide-react";
 import { HeroSection } from "../components/hero-section";
+import { ScrollReveal } from "../components/scroll-reveal";
 import { offers } from "../data/offers";
 import heroKebab from "../assets/hero-kebab.jpg";
 import dishBiryani from "../assets/dish-biryani.jpg";
@@ -45,7 +46,7 @@ function HomePage() {
       {/* SIGNATURE DISHES */}
       <section className="border-y border-border bg-secondary/60 py-24 lg:py-28">
         <div className="mx-auto max-w-7xl px-6">
-          <div className="mx-auto max-w-2xl text-center">
+          <ScrollReveal className="mx-auto max-w-2xl text-center">
             <p className="text-[10px] font-bold uppercase tracking-[0.32em] text-primary">
               From Our Kitchen
             </p>
@@ -57,12 +58,15 @@ function HomePage() {
               Tandoori grills, fragrant biryanis and oven-fresh naan — crafted with authentic
               spices and time-honored recipes.
             </p>
-          </div>
+          </ScrollReveal>
 
           <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
             {signatures.map((d, i) => (
-              <article
+              <ScrollReveal
                 key={d.name}
+                as="article"
+                delay={i * 90}
+                variant="fade-up"
                 className="group flex flex-col overflow-hidden rounded-xl border border-border/80 bg-card shadow-[0_4px_24px_-8px_rgba(28,21,17,0.1)] transition duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-[0_16px_40px_-12px_rgba(28,21,17,0.18)]"
               >
                 <div className="relative aspect-[4/5] overflow-hidden bg-muted">
@@ -101,11 +105,11 @@ function HomePage() {
                     <ArrowRight size={12} className="transition group-hover:translate-x-0.5" />
                   </Link>
                 </div>
-              </article>
+              </ScrollReveal>
             ))}
           </div>
 
-          <div className="mt-14 text-center">
+          <ScrollReveal className="mt-14 text-center" delay={120}>
             <Link
               to="/menu"
               className="inline-flex items-center gap-2 rounded-md border border-border bg-card px-8 py-3.5 text-[11px] font-bold uppercase tracking-[0.22em] text-foreground shadow-sm transition hover:border-primary hover:text-primary"
@@ -113,7 +117,7 @@ function HomePage() {
               Explore Full Menu
               <ArrowRight size={14} />
             </Link>
-          </div>
+          </ScrollReveal>
         </div>
       </section>
 
@@ -130,6 +134,7 @@ function HomePage() {
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/60 to-transparent" />
 
         <div className="relative mx-auto grid max-w-7xl items-center gap-14 px-6 lg:grid-cols-2 lg:gap-20">
+          <ScrollReveal variant="fade-right">
           <div>
             <p className="text-[10px] font-bold uppercase tracking-[0.32em] text-primary">
               Our Story
@@ -173,7 +178,9 @@ function HomePage() {
               <ArrowRight size={14} />
             </Link>
           </div>
+          </ScrollReveal>
 
+          <ScrollReveal variant="fade-left" delay={100}>
           <div className="relative mx-auto mb-16 w-full max-w-md lg:mb-0 lg:max-w-none">
             <div
               className="pointer-events-none absolute -right-3 -top-3 z-10 h-20 w-20 border-r-2 border-t-2 border-primary/70 lg:-right-4 lg:-top-4 lg:h-24 lg:w-24"
@@ -211,13 +218,14 @@ function HomePage() {
               </p>
             </div>
           </div>
+          </ScrollReveal>
         </div>
       </section>
 
       {/* OFFERS & SPECIALS */}
       <section className="border-y border-border bg-background py-16 lg:py-20">
         <div className="mx-auto max-w-7xl px-6">
-          <div className="mx-auto max-w-2xl text-center">
+          <ScrollReveal className="mx-auto max-w-2xl text-center">
             <p className="text-[10px] font-bold uppercase tracking-[0.32em] text-primary">
               Special Offers
             </p>
@@ -228,14 +236,17 @@ function HomePage() {
             <p className="text-sm font-medium leading-relaxed text-muted-foreground">
               Lunch, weekends and special occasions — always cooked fresh.
             </p>
-          </div>
+          </ScrollReveal>
 
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {featuredOffers.map((o) => {
+            {featuredOffers.map((o, i) => {
               const Icon = offerIcons[o.id];
               return (
-              <article
+              <ScrollReveal
                 key={o.id}
+                as="article"
+                delay={i * 80}
+                variant="scale"
                 className={`group flex flex-col overflow-hidden rounded-lg border bg-card transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_32px_-12px_rgba(28,21,17,0.12)] ${
                   o.featured
                     ? "border-primary/35 shadow-[0_4px_20px_-8px_rgba(197,92,38,0.15)]"
@@ -283,12 +294,12 @@ function HomePage() {
                     <ArrowRight size={10} className="transition group-hover:translate-x-0.5" />
                   </Link>
                 </div>
-              </article>
+              </ScrollReveal>
             );
             })}
           </div>
 
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
+          <ScrollReveal className="mt-8 flex flex-wrap justify-center gap-3" delay={100}>
             <Link
               to="/offers"
               className="inline-flex items-center gap-2 rounded-md bg-primary px-8 py-3.5 text-[11px] font-bold uppercase tracking-[0.22em] text-primary-foreground shadow-md shadow-primary/20 transition hover:brightness-110"
@@ -302,7 +313,7 @@ function HomePage() {
             >
               Order Online
             </Link>
-          </div>
+          </ScrollReveal>
         </div>
       </section>
 
@@ -323,6 +334,7 @@ function HomePage() {
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
 
         <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-6 py-24 lg:grid-cols-[1.15fr_1fr] lg:gap-16 lg:py-28">
+          <ScrollReveal variant="fade-right">
           <div>
             <p className="text-[10px] font-bold uppercase tracking-[0.32em] text-primary">
               Visit Us
@@ -364,7 +376,9 @@ function HomePage() {
               </div>
             </div>
           </div>
+          </ScrollReveal>
 
+          <ScrollReveal variant="fade-left" delay={120}>
           <div className="rounded-xl border border-white/10 bg-[#241c17]/80 p-8 shadow-[0_24px_64px_-20px_rgba(0,0,0,0.5)] backdrop-blur-md sm:p-10">
             <div className="flex items-center gap-3">
               <span className="grid size-12 place-items-center rounded-lg bg-primary/15 text-primary">
@@ -408,6 +422,7 @@ function HomePage() {
               </Link>
             </div>
           </div>
+          </ScrollReveal>
         </div>
       </section>
     </>

@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
+import { ScrollReveal } from "../components/scroll-reveal";
 import heroKebab from "../assets/hero-kebab.jpg";
 import dishBiryani from "../assets/dish-biryani.jpg";
 import dishButterChicken from "../assets/dish-butter-chicken.jpg";
@@ -237,9 +238,12 @@ function MenuPage() {
       <section className="bg-secondary/30 py-10 sm:py-14">
         <div className="mx-auto max-w-5xl space-y-8 px-4 sm:px-6">
           {sections.map((s, i) => (
-            <article
+            <ScrollReveal
               key={s.id}
+              as="article"
               id={s.id}
+              delay={i * 60}
+              variant="fade-up"
               className="scroll-mt-32 overflow-hidden rounded-xl border border-border bg-card shadow-[0_2px_16px_-6px_rgba(28,21,17,0.08)]"
             >
               {/* Category header */}
@@ -277,11 +281,10 @@ function MenuPage() {
                   <MenuItemRow key={item.n} item={item} />
                 ))}
               </div>
-            </article>
+            </ScrollReveal>
           ))}
 
-          {/* CTA */}
-          <div className="rounded-xl border border-border bg-card px-6 py-10 text-center sm:py-12">
+          <ScrollReveal variant="scale" className="rounded-xl border border-border bg-card px-6 py-10 text-center sm:py-12">
             <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-primary">
               Ready to Dine?
             </p>
@@ -306,7 +309,7 @@ function MenuPage() {
                 Order Online
               </Link>
             </div>
-          </div>
+          </ScrollReveal>
         </div>
       </section>
     </>

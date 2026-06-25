@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Clock } from "lucide-react";
+import { ScrollReveal } from "../components/scroll-reveal";
 import heroKebab from "../assets/hero-kebab.jpg";
 import dishBiryani from "../assets/dish-biryani.jpg";
 import dishButterChicken from "../assets/dish-butter-chicken.jpg";
@@ -72,9 +73,9 @@ const posts = [
 const featured = posts.find((p) => p.featured) ?? posts[0];
 const rest = posts.filter((p) => !p.featured);
 
-function BlogCard({ post }: { post: (typeof posts)[number] }) {
+function BlogCard({ post, index }: { post: (typeof posts)[number]; index: number }) {
   return (
-    <article className="group flex flex-col overflow-hidden rounded-xl border border-border bg-card shadow-[0_4px_20px_-8px_rgba(28,21,17,0.08)] transition duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-[0_16px_40px_-12px_rgba(28,21,17,0.12)]">
+    <ScrollReveal as="article" delay={index * 90} variant="fade-up" className="group flex flex-col overflow-hidden rounded-xl border border-border bg-card shadow-[0_4px_20px_-8px_rgba(28,21,17,0.08)] transition duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-[0_16px_40px_-12px_rgba(28,21,17,0.12)]">
       <div className="relative aspect-[16/10] overflow-hidden bg-muted">
         <img
           src={post.img}
@@ -112,7 +113,7 @@ function BlogCard({ post }: { post: (typeof posts)[number] }) {
           <ArrowRight size={12} className="transition group-hover:translate-x-0.5" />
         </span>
       </div>
-    </article>
+    </ScrollReveal>
   );
 }
 
@@ -147,6 +148,7 @@ function BlogPage() {
 
       {/* Featured post */}
       <section className="mx-auto max-w-7xl px-6 py-14 lg:py-16">
+        <ScrollReveal>
         <p className="text-[10px] font-bold uppercase tracking-[0.32em] text-primary">
           Featured
         </p>
@@ -192,12 +194,13 @@ function BlogPage() {
             </span>
           </div>
         </article>
+        </ScrollReveal>
       </section>
 
       {/* Post grid */}
       <section className="border-t border-border bg-secondary/40 py-14 lg:py-16">
         <div className="mx-auto max-w-7xl px-6">
-          <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
+          <ScrollReveal className="mb-10 flex flex-wrap items-end justify-between gap-4">
             <div>
               <p className="text-[10px] font-bold uppercase tracking-[0.32em] text-primary">
                 Latest Articles
@@ -209,11 +212,11 @@ function BlogPage() {
             <p className="text-sm font-medium text-muted-foreground">
               {posts.length} articles
             </p>
-          </div>
+          </ScrollReveal>
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {rest.map((post) => (
-              <BlogCard key={post.slug} post={post} />
+            {rest.map((post, i) => (
+              <BlogCard key={post.slug} post={post} index={i} />
             ))}
           </div>
         </div>
@@ -225,7 +228,7 @@ function BlogPage() {
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_50%,rgba(197,92,38,0.12),transparent_55%)]"
           aria-hidden
         />
-        <div className="relative mx-auto max-w-2xl px-6 text-center">
+        <ScrollReveal className="relative mx-auto max-w-2xl px-6 text-center">
           <p className="text-[10px] font-bold uppercase tracking-[0.32em] text-primary">
             Taste It Yourself
           </p>
@@ -251,7 +254,7 @@ function BlogPage() {
               Reserve a Table
             </Link>
           </div>
-        </div>
+        </ScrollReveal>
       </section>
     </>
   );

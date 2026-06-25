@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, ExternalLink } from "lucide-react";
 import { offers } from "../data/offers";
+import { ScrollReveal } from "../components/scroll-reveal";
 import dishBiryani from "../assets/dish-biryani.jpg";
 
 const ORDER_URL =
@@ -47,9 +48,12 @@ function OffersPage() {
       <section className="bg-background py-12 lg:py-16">
         <div className="mx-auto max-w-7xl px-6">
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {offers.map((o) => (
-              <article
+            {offers.map((o, i) => (
+              <ScrollReveal
                 key={o.id}
+                as="article"
+                delay={i * 70}
+                variant="fade-up"
                 className={`group flex flex-col overflow-hidden rounded-lg border bg-card transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_32px_-12px_rgba(28,21,17,0.14)] ${
                   o.featured ? "border-primary/35" : "border-border hover:border-primary/30"
                 }`}
@@ -102,14 +106,14 @@ function OffersPage() {
                     </a>
                   </div>
                 </div>
-              </article>
+              </ScrollReveal>
             ))}
           </div>
         </div>
       </section>
 
       <section className="border-t border-border bg-secondary/40 py-12">
-        <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 px-6 sm:flex-row sm:items-center">
+        <ScrollReveal className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 px-6 sm:flex-row sm:items-center">
           <div className="max-w-lg">
             <h2 className="font-display text-2xl font-extrabold text-foreground sm:text-3xl">
               Planning a party or office lunch?
@@ -125,7 +129,7 @@ function OffersPage() {
             Request a Quote
             <ArrowRight size={12} />
           </Link>
-        </div>
+        </ScrollReveal>
       </section>
     </>
   );

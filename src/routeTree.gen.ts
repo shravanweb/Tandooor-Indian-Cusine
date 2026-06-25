@@ -14,6 +14,7 @@ import { Route as ReserveRouteImport } from './routes/reserve'
 import { Route as OrderRouteImport } from './routes/order'
 import { Route as OffersRouteImport } from './routes/offers'
 import { Route as MenuRouteImport } from './routes/menu'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AboutRouteImport } from './routes/about'
@@ -44,6 +45,11 @@ const MenuRoute = MenuRouteImport.update({
   path: '/menu',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
@@ -70,6 +76,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/blog': typeof BlogRoute
   '/contact': typeof ContactRoute
+  '/login': typeof LoginRoute
   '/menu': typeof MenuRoute
   '/offers': typeof OffersRoute
   '/order': typeof OrderRoute
@@ -81,6 +88,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/blog': typeof BlogRoute
   '/contact': typeof ContactRoute
+  '/login': typeof LoginRoute
   '/menu': typeof MenuRoute
   '/offers': typeof OffersRoute
   '/order': typeof OrderRoute
@@ -93,6 +101,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/blog': typeof BlogRoute
   '/contact': typeof ContactRoute
+  '/login': typeof LoginRoute
   '/menu': typeof MenuRoute
   '/offers': typeof OffersRoute
   '/order': typeof OrderRoute
@@ -106,6 +115,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/blog'
     | '/contact'
+    | '/login'
     | '/menu'
     | '/offers'
     | '/order'
@@ -117,6 +127,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/blog'
     | '/contact'
+    | '/login'
     | '/menu'
     | '/offers'
     | '/order'
@@ -128,6 +139,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/blog'
     | '/contact'
+    | '/login'
     | '/menu'
     | '/offers'
     | '/order'
@@ -140,6 +152,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   BlogRoute: typeof BlogRoute
   ContactRoute: typeof ContactRoute
+  LoginRoute: typeof LoginRoute
   MenuRoute: typeof MenuRoute
   OffersRoute: typeof OffersRoute
   OrderRoute: typeof OrderRoute
@@ -184,6 +197,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MenuRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/contact': {
       id: '/contact'
       path: '/contact'
@@ -220,6 +240,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   BlogRoute: BlogRoute,
   ContactRoute: ContactRoute,
+  LoginRoute: LoginRoute,
   MenuRoute: MenuRoute,
   OffersRoute: OffersRoute,
   OrderRoute: OrderRoute,

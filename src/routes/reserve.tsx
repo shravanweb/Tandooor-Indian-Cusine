@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Check } from "lucide-react";
+import { ScrollReveal } from "../components/scroll-reveal";
 import heroKebab from "../assets/hero-kebab.jpg";
 
 export const Route = createFileRoute("/reserve")({
@@ -23,6 +24,7 @@ function ReservePage() {
       <div className="absolute inset-0 bg-background/80" />
 
       <div className="relative mx-auto grid max-w-7xl gap-16 px-6 py-24 md:grid-cols-2">
+        <ScrollReveal variant="fade-right">
         <div>
           <p className="text-[11px] font-semibold uppercase tracking-[0.35em] text-primary">Reservations</p>
           <h1 className="mt-4 font-display text-6xl leading-[1] text-foreground">Save your seat at <span className="italic text-primary">the leaf</span>.</h1>
@@ -37,8 +39,9 @@ function ReservePage() {
             <Row label="Hours · Sunday" value="11 AM – 9 PM" />
           </div>
         </div>
+        </ScrollReveal>
 
-        <div className="rounded-sm border border-border bg-card p-8 md:p-10">
+        <ScrollReveal variant="fade-left" delay={100} className="rounded-sm border border-border bg-card p-8 md:p-10">
           {sent ? (
             <div className="flex flex-col items-center py-16 text-center">
               <div className="grid size-14 place-items-center rounded-full bg-primary/15 text-primary"><Check size={26} /></div>
@@ -88,7 +91,7 @@ function ReservePage() {
               </button>
             </form>
           )}
-        </div>
+        </ScrollReveal>
       </div>
     </section>
   );

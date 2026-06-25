@@ -11,9 +11,9 @@ const slides = [
     label: "Tandoori",
     alt: "Tandoori kebabs fresh from the clay oven",
     eyebrow: "Tandoor Specialties",
-    title: "Flame-kissed",
+    title: "Tandoori",
     accent: "kebabs",
-    rest: "from our clay oven.",
+    rest: "roasted in our clay oven.",
     desc: "Succulent seekh kebabs and tandoori platters, marinated overnight and roasted at blazing heat.",
   },
   {

@@ -412,3 +412,112 @@ body {
   animation: menu-fade-up 0.55s ease-out both;
 }
 
+/* Scroll reveal animations */
+@keyframes scroll-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scroll-fade-down {
+  from {
+    opacity: 0;
+    transform: translateY(-32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scroll-fade-left {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scroll-fade-right {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scroll-scale {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes scroll-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .scroll-reveal {
+    opacity: 0;
+    will-change: opacity, transform;
+  }
+
+  .scroll-reveal.scroll-reveal-visible {
+    animation-duration: var(--reveal-duration, 700ms);
+    animation-delay: var(--reveal-delay, 0ms);
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    animation-fill-mode: both;
+  }
+
+  .scroll-reveal--fade-up.scroll-reveal-visible {
+    animation-name: scroll-fade-up;
+  }
+
+  .scroll-reveal--fade-down.scroll-reveal-visible {
+    animation-name: scroll-fade-down;
+  }
+
+  .scroll-reveal--fade-left.scroll-reveal-visible {
+    animation-name: scroll-fade-left;
+  }
+
+  .scroll-reveal--fade-right.scroll-reveal-visible {
+    animation-name: scroll-fade-right;
+  }
+
+  .scroll-reveal--scale.scroll-reveal-visible {
+    animation-name: scroll-scale;
+  }
+
+  .scroll-reveal--fade.scroll-reveal-visible {
+    animation-name: scroll-fade;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal {
+    opacity: 1;
+  }
+}
+
