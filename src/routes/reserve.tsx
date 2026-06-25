@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Check } from "lucide-react";
-import bananaLeaf from "../assets/banana-leaf.jpg";
+import heroKebab from "../assets/hero-kebab.jpg";
 
 export const Route = createFileRoute("/reserve")({
   head: () => ({
@@ -19,7 +19,7 @@ function ReservePage() {
   const [sent, setSent] = useState(false);
   return (
     <section className="relative overflow-hidden">
-      <img src={bananaLeaf} alt="" width={1600} height={900} className="absolute inset-0 size-full object-cover opacity-15" loading="lazy" />
+      <img src={heroKebab} alt="" width={1600} height={900} className="absolute inset-0 size-full object-cover opacity-15" loading="lazy" />
       <div className="absolute inset-0 bg-background/80" />
 
       <div className="relative mx-auto grid max-w-7xl gap-16 px-6 py-24 md:grid-cols-2">

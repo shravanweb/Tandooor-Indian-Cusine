@@ -1,160 +1,412 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import heroDosa from "../assets/hero-dosa.jpg";
-import dishIdliVada from "../assets/dish-idli-vada.jpg";
+import { ArrowRight, Calendar, MapPin, PartyPopper, Percent, Phone, UtensilsCrossed } from "lucide-react";
+import { HeroSection } from "../components/hero-section";
+import { offers } from "../data/offers";
+import heroKebab from "../assets/hero-kebab.jpg";
 import dishBiryani from "../assets/dish-biryani.jpg";
-import filterCoffee from "../assets/filter-coffee.jpg";
-import bananaLeaf from "../assets/banana-leaf.jpg";
+import dishButterChicken from "../assets/dish-butter-chicken.jpg";
+import dishGarlicNaan from "../assets/dish-garlic-naan.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Saaral — Authentic South Indian Cuisine, Provo UT" },
-      { name: "description", content: "Crispy dosa, soft idli, fragrant biryani and brass-tumbler filter coffee. Dine-in, takeout and catering in Provo, Utah." },
-      { property: "og:title", content: "Saaral — South Indian Cuisine" },
-      { property: "og:description", content: "Authentic dosa, idli, biryani and filter coffee in Provo, Utah." },
-      { property: "og:image", content: heroDosa },
-      { name: "twitter:image", content: heroDosa },
+      { title: "Tandoor Indian Cuisine — Authentic Indian Restaurant, Provo UT" },
+      { name: "description", content: "Tandoori kebabs, fragrant biryani and authentic Indian cuisine. Dine-in, takeout and catering in Provo, Utah." },
+      { property: "og:title", content: "Tandoor Indian Cuisine — Provo, UT" },
+      { property: "og:description", content: "Tandoori kebabs, biryani and authentic Indian food in Provo, Utah." },
+      { property: "og:image", content: heroKebab },
+      { name: "twitter:image", content: heroKebab },
     ],
   }),
   component: HomePage,
 });
 
 const signatures = [
-  { name: "Masala Dosa", subtitle: "Mysore-style", price: "$13", img: heroDosa, desc: "Paper-thin fermented crepe, potato masala, three chutneys, sambar." },
-  { name: "Idli & Medu Vada", subtitle: "Tiffin classic", price: "$11", img: dishIdliVada, desc: "Pillowy steamed rice cakes and crisp lentil donuts on a banana leaf." },
-  { name: "Hyderabadi Biryani", subtitle: "Dum-cooked", price: "$17", img: dishBiryani, desc: "Long-grain basmati, slow-cooked chicken, saffron, fried onions, raita." },
-  { name: "Filter Coffee", subtitle: "Madras tradition", price: "$4", img: filterCoffee, desc: "Decoction brewed slow, finished with frothed milk in a brass tumbler." },
+  { name: "Tandoori Chicken", subtitle: "Tandoor Special", price: "$16", img: heroKebab, desc: "Yogurt-marinated chicken roasted in our clay tandoor with mint chutney." },
+  { name: "Hyderabadi Biryani", subtitle: "Chef's Pick", price: "$17", img: dishBiryani, desc: "Fragrant basmati, saffron and slow-cooked spices — layered to perfection." },
+  { name: "Butter Chicken", subtitle: "House Classic", price: "$15", img: dishButterChicken, desc: "Tender chicken in a rich, creamy tomato sauce with warm naan." },
+  { name: "Garlic Naan", subtitle: "Fresh Baked", price: "$4", img: dishGarlicNaan, desc: "Soft clay-oven naan brushed with garlic butter, served warm." },
 ];
+
+const offerIcons = {
+  "lunch-combo": UtensilsCrossed,
+  "family-biryani": Calendar,
+  catering: PartyPopper,
+  "student-special": Percent,
+} as const;
+
+const featuredOffers = offers.filter((o) => o.id !== "student-special");
 
 function HomePage() {
   return (
     <>
-      {/* HERO */}
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0">
-          <img src={heroDosa} alt="" width={1600} height={1280} className="size-full object-cover opacity-60" />
-          <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/30" />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
-        </div>
+      <HeroSection />
 
-        <div className="relative mx-auto grid min-h-[88vh] max-w-7xl items-center px-6 py-24">
-          <div className="max-w-2xl">
+      {/* SIGNATURE DISHES */}
+      <section className="border-y border-border bg-secondary/60 py-24 lg:py-28">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="text-[10px] font-bold uppercase tracking-[0.32em] text-primary">
+              From Our Kitchen
+            </p>
+            <h2 className="mt-3 font-display text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl">
+              House Favorites
+            </h2>
+            <div className="rule-gold mx-auto my-6 max-w-[12rem]" />
+            <p className="text-sm font-medium leading-relaxed text-muted-foreground sm:text-base">
+              Tandoori grills, fragrant biryanis and oven-fresh naan — crafted with authentic
+              spices and time-honored recipes.
+            </p>
+          </div>
+
+          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
+            {signatures.map((d, i) => (
+              <article
+                key={d.name}
+                className="group flex flex-col overflow-hidden rounded-xl border border-border/80 bg-card shadow-[0_4px_24px_-8px_rgba(28,21,17,0.1)] transition duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-[0_16px_40px_-12px_rgba(28,21,17,0.18)]"
+              >
+                <div className="relative aspect-[4/5] overflow-hidden bg-muted">
+                  <img
+                    src={d.img}
+                    alt={d.name}
+                    loading="lazy"
+                    width={900}
+                    height={1100}
+                    className="size-full object-cover transition duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                  <span className="absolute left-4 top-4 grid size-9 place-items-center rounded-full border border-white/20 bg-black/40 text-[10px] font-bold text-white backdrop-blur-sm">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="absolute bottom-4 right-4 rounded-md bg-primary px-3 py-1.5 text-sm font-bold text-primary-foreground shadow-md">
+                    {d.price}
+                  </span>
+                </div>
+
+                <div className="flex flex-1 flex-col p-5">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-primary">
+                    {d.subtitle}
+                  </p>
+                  <h3 className="mt-1.5 font-display text-xl font-bold leading-tight text-foreground">
+                    {d.name}
+                  </h3>
+                  <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
+                    {d.desc}
+                  </p>
+                  <Link
+                    to="/menu"
+                    className="mt-5 inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-foreground transition group-hover:text-primary"
+                  >
+                    View on Menu
+                    <ArrowRight size={12} className="transition group-hover:translate-x-0.5" />
+                  </Link>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <div className="mt-14 text-center">
+            <Link
+              to="/menu"
+              className="inline-flex items-center gap-2 rounded-md border border-border bg-card px-8 py-3.5 text-[11px] font-bold uppercase tracking-[0.22em] text-foreground shadow-sm transition hover:border-primary hover:text-primary"
+            >
+              Explore Full Menu
+              <ArrowRight size={14} />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* OUR STORY */}
+      <section className="relative overflow-hidden bg-[#1c1511] py-24 text-[#f2ebe3] lg:py-32">
+        <div
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_20%_0%,rgba(197,92,38,0.14),transparent_55%)]"
+          aria-hidden
+        />
+        <div
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_90%_100%,rgba(197,92,38,0.08),transparent_50%)]"
+          aria-hidden
+        />
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/60 to-transparent" />
+
+        <div className="relative mx-auto grid max-w-7xl items-center gap-14 px-6 lg:grid-cols-2 lg:gap-20">
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-[0.32em] text-primary">
+              Our Story
+            </p>
+            <h2 className="mt-4 font-display text-4xl font-extrabold leading-[1.1] tracking-tight sm:text-5xl">
+              A tradition of tandoor, spice &amp; hospitality.
+            </h2>
+            <div className="my-8 h-px max-w-[14rem] bg-gradient-to-r from-primary/80 to-transparent" />
+
+            <p className="text-base font-medium leading-relaxed text-[#f2ebe3]/80 sm:text-lg">
+              Tandoor Indian Cuisine brings the warmth of North India to Provo — from
+              flame-roasted kebabs and slow-cooked biryanis to hand-rolled naan fresh from
+              our clay oven.
+            </p>
+            <p className="mt-4 text-base leading-relaxed text-[#f2ebe3]/65">
+              Our recipes are rooted in family kitchens across Delhi and Hyderabad,
+              stone-ground masalas and marinades prepared daily. Every plate is served
+              with the generosity and care of a home-cooked meal.
+            </p>
+
+            <div className="mt-10 grid grid-cols-3 gap-6 border-y border-white/10 py-8">
+              {[
+                { value: "Clay", label: "Tandoor oven" },
+                { value: "Daily", label: "Fresh masalas" },
+                { value: "Provo", label: "Utah Valley" },
+              ].map((s) => (
+                <div key={s.label}>
+                  <p className="font-display text-2xl font-extrabold text-primary">{s.value}</p>
+                  <p className="mt-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-[#f2ebe3]/50">
+                    {s.label}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            <Link
+              to="/about"
+              className="mt-8 inline-flex items-center gap-2 rounded-md bg-primary px-7 py-3.5 text-[11px] font-bold uppercase tracking-[0.22em] text-primary-foreground transition hover:brightness-110"
+            >
+              Discover Our Journey
+              <ArrowRight size={14} />
+            </Link>
+          </div>
+
+          <div className="relative mx-auto mb-16 w-full max-w-md lg:mb-0 lg:max-w-none">
+            <div
+              className="pointer-events-none absolute -right-3 -top-3 z-10 h-20 w-20 border-r-2 border-t-2 border-primary/70 lg:-right-4 lg:-top-4 lg:h-24 lg:w-24"
+              aria-hidden
+            />
+            <div
+              className="pointer-events-none absolute -bottom-3 -left-3 z-10 h-20 w-20 border-b-2 border-l-2 border-primary/40 lg:-bottom-4 lg:-left-4 lg:h-24 lg:w-24"
+              aria-hidden
+            />
+
+            <div className="relative overflow-hidden rounded-xl shadow-[0_32px_64px_-16px_rgba(0,0,0,0.55)]">
+              <img
+                src={heroKebab}
+                alt="Tandoori kebabs roasting in a clay oven"
+                loading="lazy"
+                width={900}
+                height={1100}
+                className="aspect-[4/5] w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+              <div className="absolute bottom-5 left-5 rounded-md border border-white/15 bg-black/40 px-4 py-2 backdrop-blur-sm">
+                <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-primary">
+                  Since opening in Provo
+                </p>
+                <p className="mt-0.5 text-sm font-semibold text-white">Authentic Indian dining</p>
+              </div>
+            </div>
+
+            <div className="absolute -bottom-8 -left-4 max-w-[240px] rounded-xl border border-white/10 bg-card p-6 shadow-2xl lg:-left-8">
+              <p className="font-display text-lg font-bold leading-snug text-foreground">
+                &ldquo;The finest Indian flavors in Utah Valley.&rdquo;
+              </p>
+              <p className="mt-3 text-[10px] font-bold uppercase tracking-[0.22em] text-muted-foreground">
+                — Happy Guest
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* OFFERS & SPECIALS */}
+      <section className="border-y border-border bg-background py-16 lg:py-20">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="text-[10px] font-bold uppercase tracking-[0.32em] text-primary">
+              Special Offers
+            </p>
+            <h2 className="mt-3 font-display text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">
+              Dine, Celebrate &amp; Save
+            </h2>
+            <div className="rule-gold mx-auto my-5 max-w-[10rem]" />
+            <p className="text-sm font-medium leading-relaxed text-muted-foreground">
+              Lunch, weekends and special occasions — always cooked fresh.
+            </p>
+          </div>
+
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {featuredOffers.map((o) => {
+              const Icon = offerIcons[o.id];
+              return (
+              <article
+                key={o.id}
+                className={`group flex flex-col overflow-hidden rounded-lg border bg-card transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_32px_-12px_rgba(28,21,17,0.12)] ${
+                  o.featured
+                    ? "border-primary/35 shadow-[0_4px_20px_-8px_rgba(197,92,38,0.15)]"
+                    : "border-border hover:border-primary/30"
+                }`}
+              >
+                <div className="relative aspect-[16/10] overflow-hidden">
+                  <img
+                    src={o.img}
+                    alt=""
+                    loading="lazy"
+                    className="size-full object-cover transition duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-card/90 via-transparent to-transparent" />
+                  {o.featured && (
+                    <span className="absolute left-3 top-3 rounded-full bg-primary px-2 py-0.5 text-[8px] font-bold uppercase text-primary-foreground">
+                      Popular
+                    </span>
+                  )}
+                </div>
+
+                <div className="flex flex-1 flex-col p-4">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="grid size-8 place-items-center rounded-md border border-border bg-secondary text-primary">
+                      <Icon size={16} strokeWidth={2} />
+                    </span>
+                    <p className="font-display text-lg font-extrabold text-primary">{o.price}</p>
+                  </div>
+
+                  <p className="mt-3 text-[8px] font-bold uppercase tracking-[0.2em] text-primary">
+                    {o.tag}
+                  </p>
+                  <h3 className="mt-1 font-display text-lg font-bold text-foreground">
+                    {o.title}
+                  </h3>
+                  <p className="mt-1.5 flex-1 text-xs leading-relaxed text-muted-foreground">
+                    {o.desc}
+                  </p>
+
+                  <Link
+                    to="/offers"
+                    className="mt-3 inline-flex items-center gap-1 text-[9px] font-bold uppercase tracking-[0.16em] text-foreground transition group-hover:text-primary"
+                  >
+                    Details
+                    <ArrowRight size={10} className="transition group-hover:translate-x-0.5" />
+                  </Link>
+                </div>
+              </article>
+            );
+            })}
+          </div>
+
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <Link
+              to="/offers"
+              className="inline-flex items-center gap-2 rounded-md bg-primary px-8 py-3.5 text-[11px] font-bold uppercase tracking-[0.22em] text-primary-foreground shadow-md shadow-primary/20 transition hover:brightness-110"
+            >
+              View All Offers
+              <ArrowRight size={14} />
+            </Link>
+            <Link
+              to="/order"
+              className="inline-flex items-center gap-2 rounded-md border border-border bg-card px-8 py-3.5 text-[11px] font-bold uppercase tracking-[0.22em] text-foreground shadow-sm transition hover:border-primary hover:text-primary"
+            >
+              Order Online
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* VISIT CTA */}
+      <section className="relative overflow-hidden bg-[#1c1511] text-[#f2ebe3]">
+        <div className="absolute inset-0" aria-hidden>
+          <img
+            src={dishBiryani}
+            alt=""
+            className="h-full w-full object-cover opacity-25"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#1c1511] via-[#1c1511]/92 to-[#1c1511]/75" />
+        </div>
+        <div
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_80%_50%,rgba(197,92,38,0.18),transparent_55%)]"
+          aria-hidden
+        />
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
+
+        <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-6 py-24 lg:grid-cols-[1.15fr_1fr] lg:gap-16 lg:py-28">
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-[0.32em] text-primary">
+              Visit Us
+            </p>
+            <h2 className="mt-4 font-display text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-5xl lg:text-[3.25rem]">
+              Your table is waiting — tandoor-fired flavors tonight.
+            </h2>
+            <div className="my-8 h-px max-w-[14rem] bg-gradient-to-r from-primary/80 to-transparent" />
+            <p className="max-w-lg text-base font-medium leading-relaxed text-[#f2ebe3]/75 sm:text-lg">
+              Dine in with family, pick up after work, or reserve for a special evening.
+              Weekends fill quickly — book ahead and let us take care of the rest.
+            </p>
+
+            <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
+              <div className="flex items-start gap-3 rounded-lg border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-sm">
+                <MapPin size={18} className="mt-0.5 shrink-0 text-primary" strokeWidth={2} />
+                <div>
+                  <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#f2ebe3]/50">
+                    Location
+                  </p>
+                  <p className="mt-1 text-sm font-medium text-[#f2ebe3]/90">
+                    1600 N Freedom Blvd, Provo, UT 84604
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3 rounded-lg border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-sm">
+                <Phone size={18} className="mt-0.5 shrink-0 text-primary" strokeWidth={2} />
+                <div>
+                  <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#f2ebe3]/50">
+                    Call Us
+                  </p>
+                  <a
+                    href="tel:+18019609048"
+                    className="mt-1 block text-sm font-medium text-[#f2ebe3]/90 transition hover:text-primary"
+                  >
+                    +1 801-960-9048
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="rounded-xl border border-white/10 bg-[#241c17]/80 p-8 shadow-[0_24px_64px_-20px_rgba(0,0,0,0.5)] backdrop-blur-md sm:p-10">
             <div className="flex items-center gap-3">
-              <span className="h-px w-10 bg-primary" />
-              <span className="text-[11px] font-semibold uppercase tracking-[0.35em] text-primary">Now Open · Provo, UT</span>
-            </div>
-            <h1 className="mt-6 font-display text-6xl leading-[0.95] text-cream sm:text-7xl md:text-[88px]">
-              The soul of <span className="italic text-primary">South India</span>, on a banana leaf.
-            </h1>
-            <p className="mt-8 max-w-xl text-lg leading-relaxed text-foreground/80">
-              Slow-fermented dosa batter, hand-pounded masalas, and filter coffee poured from a brass tumbler. Recipes carried from Madras kitchens to Utah Valley.
-            </p>
-            <div className="mt-10 flex flex-wrap gap-3">
-              <Link to="/reserve" className="rounded-sm bg-primary px-7 py-4 text-xs font-semibold uppercase tracking-[0.25em] text-primary-foreground transition hover:opacity-90">
-                Reserve a Table
-              </Link>
-              <Link to="/menu" className="rounded-sm border border-border bg-background/40 px-7 py-4 text-xs font-semibold uppercase tracking-[0.25em] text-foreground transition hover:border-primary hover:text-primary">
-                Explore Menu
-              </Link>
-            </div>
-
-            <div className="mt-14 grid max-w-md grid-cols-3 gap-6 border-t border-border/60 pt-8 text-xs uppercase tracking-[0.2em] text-muted-foreground">
-              <div><p className="font-display text-2xl text-primary">36hr</p><p className="mt-1">Fermented batter</p></div>
-              <div><p className="font-display text-2xl text-primary">100%</p><p className="mt-1">Hand-ground</p></div>
-              <div><p className="font-display text-2xl text-primary">Veg+</p><p className="mt-1">Non-veg options</p></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* SIGNATURES */}
-      <section className="mx-auto max-w-7xl px-6 py-24">
-        <div className="flex flex-col items-end justify-between gap-6 md:flex-row md:items-end">
-          <div className="max-w-xl">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-primary">Tiffin & Beyond</p>
-            <h2 className="mt-3 font-display text-5xl leading-tight text-foreground">Signature plates</h2>
-          </div>
-          <p className="max-w-sm text-sm text-foreground/70">
-            From a thin paper roast to a clay-pot biryani, each dish carries the rhythm of a different South Indian kitchen.
-          </p>
-        </div>
-
-        <div className="mt-14 grid gap-10 md:grid-cols-2 lg:grid-cols-4">
-          {signatures.map((d, i) => (
-            <article key={d.name} className={`group ${i % 2 === 1 ? "lg:mt-12" : ""}`}>
-              <div className="aspect-[4/5] overflow-hidden rounded-sm bg-muted ring-1 ring-border">
-                <img src={d.img} alt={d.name} loading="lazy" width={900} height={1100} className="size-full object-cover transition duration-700 group-hover:scale-105" />
-              </div>
-              <div className="mt-5 flex items-baseline justify-between gap-3">
-                <h3 className="font-display text-2xl text-foreground">{d.name}</h3>
-                <span className="font-mono text-sm text-primary">{d.price}</span>
-              </div>
-              <p className="mt-1 text-[10px] uppercase tracking-[0.25em] text-muted-foreground">{d.subtitle}</p>
-              <p className="mt-3 text-sm leading-relaxed text-foreground/70">{d.desc}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      {/* STORY BAND */}
-      <section className="relative overflow-hidden border-y border-border/60">
-        <img src={bananaLeaf} alt="" width={1600} height={900} className="absolute inset-0 size-full object-cover opacity-25" loading="lazy" />
-        <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/80 to-background/40" />
-        <div className="relative mx-auto grid max-w-7xl gap-12 px-6 py-24 md:grid-cols-2 md:items-center">
-          <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-primary">Our Story</p>
-            <h2 className="mt-3 font-display text-5xl leading-tight text-foreground">From a Madras tiffin shop to a Provo banana leaf.</h2>
-            <div className="rule-gold my-8 max-w-xs" />
-            <p className="text-base leading-relaxed text-foreground/80">
-              Saaral — meaning a fine, gentle drizzle in Tamil — was born from family recipes passed down four generations. We ferment our batters for thirty-six hours, stone-grind our masalas, and serve every thali on a fresh banana leaf, just as it’s done back home.
-            </p>
-            <p className="mt-4 text-base leading-relaxed text-foreground/70">
-              Whether it’s a quick tiffin lunch or a 12-course Onam sadhya, we cook the way grandmothers do — patiently, generously, and with a tumbler of filter coffee on the side.
-            </p>
-          </div>
-          <div className="relative">
-            <img src={dishIdliVada} alt="Idli and vada on banana leaf" loading="lazy" width={900} height={1100} className="aspect-[4/5] w-full rounded-sm object-cover ring-1 ring-border" />
-            <div className="absolute -bottom-6 -left-6 hidden max-w-[220px] bg-primary p-6 text-primary-foreground md:block">
-              <p className="font-display text-lg italic leading-snug">“The most honest South Indian food in Utah Valley.”</p>
-              <p className="mt-3 text-[10px] uppercase tracking-[0.25em] opacity-80">— Local Diner</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* OFFERS STRIP */}
-      <section className="mx-auto max-w-7xl px-6 py-24">
-        <div className="grid gap-8 md:grid-cols-3">
-          {[
-            { tag: "Weekdays · 11–3", title: "Tiffin Thali Lunch", desc: "Three curries, rice, sambar, rasam, papad and dessert.", price: "$13.99" },
-            { tag: "Sunday Brunch", title: "Banana-Leaf Sadhya", desc: "A 12-item feast served traditionally on a fresh leaf.", price: "$24.99" },
-            { tag: "All week", title: "Catering & Events", desc: "From 20 to 500 guests — weddings, pujas, office lunches.", price: "Custom" },
-          ].map((o) => (
-            <div key={o.title} className="group flex flex-col justify-between rounded-sm border border-border bg-card/40 p-8 transition hover:border-primary">
+              <span className="grid size-12 place-items-center rounded-lg bg-primary/15 text-primary">
+                <Calendar size={22} strokeWidth={2} />
+              </span>
               <div>
-                <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-primary">{o.tag}</p>
-                <h3 className="mt-3 font-display text-3xl text-foreground">{o.title}</h3>
-                <p className="mt-3 text-sm text-foreground/70">{o.desc}</p>
-              </div>
-              <div className="mt-8 flex items-baseline justify-between border-t border-border pt-5">
-                <span className="font-mono text-primary">{o.price}</span>
-                <Link to="/offers" className="text-[10px] uppercase tracking-[0.25em] text-foreground/80 hover:text-primary">Details →</Link>
+                <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-primary">
+                  Reservations
+                </p>
+                <p className="mt-1 font-display text-xl font-bold text-white">
+                  Secure your spot today
+                </p>
               </div>
             </div>
-          ))}
-        </div>
-      </section>
 
-      {/* CTA */}
-      <section className="relative overflow-hidden bg-card">
-        <div className="mx-auto grid max-w-7xl gap-10 px-6 py-20 md:grid-cols-[1.4fr_1fr] md:items-center">
-          <div>
-            <h2 className="font-display text-5xl leading-tight text-foreground">A table by the window, a dosa fresh off the tawa.</h2>
-            <p className="mt-4 max-w-xl text-foreground/70">Book ahead for weekend evenings — our 24 seats fill quickly.</p>
-          </div>
-          <div className="flex flex-wrap gap-3 md:justify-end">
-            <Link to="/reserve" className="rounded-sm bg-primary px-7 py-4 text-xs font-semibold uppercase tracking-[0.25em] text-primary-foreground">Reserve Now</Link>
-            <a href="tel:+18019609048" className="rounded-sm border border-border px-7 py-4 text-xs font-semibold uppercase tracking-[0.25em] text-foreground hover:border-primary hover:text-primary">Call · 801-960-9048</a>
+            <p className="mt-6 text-sm leading-relaxed text-[#f2ebe3]/65">
+              Lunch, dinner and weekend gatherings — we welcome walk-ins when space allows,
+              but reserving guarantees your preferred time.
+            </p>
+
+            <div className="mt-8 flex flex-col gap-3">
+              <Link
+                to="/reserve"
+                className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-7 py-4 text-[11px] font-bold uppercase tracking-[0.22em] text-primary-foreground shadow-lg shadow-primary/25 transition hover:brightness-110"
+              >
+                Reserve a Table
+                <ArrowRight size={14} />
+              </Link>
+              <a
+                href="tel:+18019609048"
+                className="inline-flex items-center justify-center gap-2 rounded-md border border-white/15 bg-white/5 px-7 py-4 text-[11px] font-bold uppercase tracking-[0.22em] text-[#f2ebe3] transition hover:border-primary/50 hover:text-primary"
+              >
+                <Phone size={14} />
+                Call 801-960-9048
+              </a>
+              <Link
+                to="/order"
+                className="inline-flex items-center justify-center gap-2 rounded-md border border-white/10 px-7 py-3.5 text-[10px] font-bold uppercase tracking-[0.2em] text-[#f2ebe3]/70 transition hover:border-primary/40 hover:text-primary"
+              >
+                Order Takeout Online
+              </Link>
+            </div>
           </div>
         </div>
       </section>

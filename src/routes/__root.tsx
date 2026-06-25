@@ -4,15 +4,21 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { type ReactNode, useEffect, useState } from "react";
 
 import appCss from "../styles.css?url";
-import { reportLovableError } from "../lib/lovable-error-reporting";
+import heroDosa from "../assets/hero-dosa.jpg";
 import { SiteHeader } from "../components/site-header";
 import { SiteFooter } from "../components/site-footer";
+import { UtensilLoader } from "../components/utensil-loader";
+import { OfferModal } from "../components/offer-modal";
+import { AppLoadProvider } from "../context/app-load";
+
+const INITIAL_LOADER_MIN_MS = 1400;
 
 function NotFoundComponent() {
   return (
@@ -39,9 +45,6 @@ function NotFoundComponent() {
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
   const router = useRouter();
-  useEffect(() => {
-    reportLovableError(error, { boundary: "tanstack_root_error_component" });
-  }, [error]);
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -71,21 +74,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Saaral — Authentic South Indian Cuisine in Provo, UT" },
+      { title: "Tandoor Indian Cuisine — Authentic Indian Restaurant in Provo, UT" },
       {
         name: "description",
         content:
-          "Saaral serves authentic South Indian cuisine — dosa, idli, biryani, filter coffee — in Provo, Utah. Reservations, catering and daily specials.",
+          "Tandoor Indian Cuisine serves authentic Indian food in Provo, Utah. Dine-in, takeout, catering and online ordering.",
       },
-      { property: "og:title", content: "Saaral — Authentic South Indian Cuisine in Provo, UT" },
-      { property: "og:description", content: "Tandoor Provo Online is a website for an Indian restaurant offering online reservations and menu access." },
+      { property: "og:title", content: "Tandoor Indian Cuisine — Provo, UT" },
+      { property: "og:description", content: "Authentic Indian restaurant in Provo. Reservations, menu and online ordering." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Saaral — Authentic South Indian Cuisine in Provo, UT" },
-      { name: "description", content: "Tandoor Provo Online is a website for an Indian restaurant offering online reservations and menu access." },
-      { name: "twitter:description", content: "Tandoor Provo Online is a website for an Indian restaurant offering online reservations and menu access." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/5f0eb460-8871-4103-9272-a87eaefa0d0c/id-preview-07bd54ed--3b37dfe8-0281-44c2-ad5a-9ab79cebf94a.lovable.app-1782366078133.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/5f0eb460-8871-4103-9272-a87eaefa0d0c/id-preview-07bd54ed--3b37dfe8-0281-44c2-ad5a-9ab79cebf94a.lovable.app-1782366078133.png" },
+      { name: "twitter:title", content: "Tandoor Indian Cuisine — Provo, UT" },
+      { name: "twitter:description", content: "Authentic Indian restaurant in Provo. Reservations, menu and online ordering." },
+      { property: "og:image", content: heroDosa },
+      { name: "twitter:image", content: heroDosa },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -93,7 +95,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,600&family=Dancing+Script:wght@700&display=swap",
       },
     ],
   }),
@@ -119,13 +121,63 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const isNavigating = useRouterState({ select: (s) => s.status === "pending" });
+  const isHome = useRouterState({ select: (s) => s.location.pathname === "/" });
+  const [initialLoadComplete, setInitialLoadComplete] = useState(false);
+  const [showNavLoader, setShowNavLoader] = useState(false);
+
+  useEffect(() => {
+    const startedAt = Date.now();
+
+    const finishInitialLoad = () => {
+      const elapsed = Date.now() - startedAt;
+      const remaining = Math.max(0, INITIAL_LOADER_MIN_MS - elapsed);
+      window.setTimeout(() => setInitialLoadComplete(true), remaining);
+    };
+
+    if (document.readyState === "complete") {
+      finishInitialLoad();
+    } else {
+      window.addEventListener("load", finishInitialLoad, { once: true });
+      return () => window.removeEventListener("load", finishInitialLoad);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!initialLoadComplete) return;
+
+    if (isNavigating) {
+      setShowNavLoader(true);
+      return;
+    }
+
+    const timer = window.setTimeout(() => setShowNavLoader(false), 400);
+    return () => window.clearTimeout(timer);
+  }, [isNavigating, initialLoadComplete]);
+
+  const showLoader = !initialLoadComplete || showNavLoader;
+
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="min-h-screen bg-background text-foreground flex flex-col">
-        <SiteHeader />
-        <main className="flex-1"><Outlet /></main>
-        <SiteFooter />
-      </div>
+      <AppLoadProvider initialLoadComplete={initialLoadComplete}>
+        <div className="min-h-screen bg-background text-foreground flex flex-col">
+          <SiteHeader />
+          {showLoader && (
+            <UtensilLoader
+              message={
+                initialLoadComplete
+                  ? "Warming up the kitchen…"
+                  : "Welcome to Tandoor…"
+              }
+            />
+          )}
+          <main className="flex-1">
+            <Outlet />
+          </main>
+          <SiteFooter />
+          {isHome && <OfferModal />}
+        </div>
+      </AppLoadProvider>
     </QueryClientProvider>
   );
 }

@@ -1,70 +1,130 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import bananaLeaf from "../assets/banana-leaf.jpg";
+import { ArrowRight, ExternalLink } from "lucide-react";
+import { offers } from "../data/offers";
 import dishBiryani from "../assets/dish-biryani.jpg";
-import filterCoffee from "../assets/filter-coffee.jpg";
-import dishIdliVada from "../assets/dish-idli-vada.jpg";
+
+const ORDER_URL =
+  "https://fromtherestaurant.com/tandoor-indian-cuisine-provo/menu/1600-N-Freedom-Blvd/";
 
 export const Route = createFileRoute("/offers")({
   head: () => ({
     meta: [
-      { title: "Offers & Specials — Saaral South Indian Kitchen" },
-      { name: "description", content: "Weekday tiffin thali, Sunday banana-leaf sadhya, student discount and catering offers at Saaral, Provo." },
-      { property: "og:title", content: "Saaral · Offers & Specials" },
-      { property: "og:description", content: "Lunch thali, Sunday sadhya, catering and student discounts." },
-      { property: "og:image", content: bananaLeaf },
+      { title: "Offers & Specials — Tandoor Indian Cuisine, Provo UT" },
+      {
+        name: "description",
+        content:
+          "Lunch combo, family biryani feast, catering packages and student specials at Tandoor Indian Cuisine, Provo.",
+      },
+      { property: "og:title", content: "Tandoor Indian Cuisine · Offers & Specials" },
+      {
+        property: "og:description",
+        content: "Weekday lunch, weekend biryani, catering and student discounts.",
+      },
+      { property: "og:image", content: dishBiryani },
     ],
   }),
   component: OffersPage,
 });
 
-const offers = [
-  { tag: "Mon – Sat · 11 AM – 3 PM", title: "Tiffin Thali Lunch", desc: "Three curries, basmati rice, sambar, rasam, papad, pickle and a dessert of the day — all served on a banana leaf.", price: "$13.99", img: dishIdliVada },
-  { tag: "Every Sunday · all day", title: "Banana-Leaf Sadhya", desc: "Our 12-item Kerala feast: avial, olan, kalan, parippu, sambar, rasam, payasam and more. A meal as much as a ritual.", price: "$24.99", img: bananaLeaf },
-  { tag: "Daily · 4 – 6 PM", title: "Filter Coffee Hour", desc: "Bottomless brass-tumbler filter coffee with any plate of vada, bonda or bajji. The Madras way to break the afternoon.", price: "$9", img: filterCoffee },
-  { tag: "With student ID", title: "UVU & BYU Student Special", desc: "10% off any dosa or biryani — every weekday after 5 PM. Show your student ID at the table.", price: "10% off", img: dishBiryani },
-];
-
 function OffersPage() {
   return (
     <>
-      <section className="border-b border-border/60">
-        <div className="mx-auto max-w-7xl px-6 py-20 text-center">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.35em] text-primary">This Season at Saaral</p>
-          <h1 className="mt-4 font-display text-6xl text-foreground sm:text-7xl">Offers & <span className="italic text-primary">specials</span></h1>
-          <p className="mx-auto mt-6 max-w-2xl text-foreground/75">
-            Small gestures that make a big plate — weekday tiffins, Sunday sadhyas, and a brass tumbler of coffee for the afternoon.
+      <section className="border-b border-border bg-[#1c1511] text-[#f2ebe3]">
+        <div className="mx-auto max-w-7xl px-6 py-14 text-center lg:py-16">
+          <p className="text-[10px] font-bold uppercase tracking-[0.32em] text-primary">
+            Special Offers
+          </p>
+          <h1 className="mt-3 font-display text-3xl font-extrabold sm:text-5xl">
+            Dine, celebrate &amp; <span className="text-primary">save</span>
+          </h1>
+          <div className="rule-gold mx-auto my-5 max-w-[10rem]" />
+          <p className="mx-auto max-w-xl text-sm text-[#f2ebe3]/70 sm:text-base">
+            Freshly cooked specials for lunch, weekends and every celebration.
           </p>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 py-20">
-        <div className="grid gap-12 md:grid-cols-2">
-          {offers.map((o) => (
-            <article key={o.title} className="group overflow-hidden rounded-sm border border-border bg-card/40">
-              <div className="aspect-[16/10] overflow-hidden">
-                <img src={o.img} alt={o.title} loading="lazy" width={1200} height={750} className="size-full object-cover transition duration-700 group-hover:scale-105" />
-              </div>
-              <div className="p-8">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-primary">{o.tag}</p>
-                <h3 className="mt-3 font-display text-3xl text-foreground">{o.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-foreground/70">{o.desc}</p>
-                <div className="mt-6 flex items-baseline justify-between border-t border-border pt-5">
-                  <span className="font-display text-2xl text-primary">{o.price}</span>
-                  <Link to="/reserve" className="text-[10px] uppercase tracking-[0.25em] text-foreground/80 hover:text-primary">Book a table →</Link>
+      <section className="bg-background py-12 lg:py-16">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {offers.map((o) => (
+              <article
+                key={o.id}
+                className={`group flex flex-col overflow-hidden rounded-lg border bg-card transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_32px_-12px_rgba(28,21,17,0.14)] ${
+                  o.featured ? "border-primary/35" : "border-border hover:border-primary/30"
+                }`}
+              >
+                <div className="relative aspect-[5/4] overflow-hidden">
+                  <img
+                    src={o.img}
+                    alt={o.title}
+                    loading="lazy"
+                    className="size-full object-cover transition duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                  {o.featured && (
+                    <span className="absolute left-2 top-2 rounded-full bg-primary px-2 py-0.5 text-[8px] font-bold uppercase tracking-[0.14em] text-primary-foreground">
+                      Popular
+                    </span>
+                  )}
+                  <span className="absolute bottom-2 right-2 rounded bg-primary px-2 py-0.5 font-display text-sm font-extrabold text-primary-foreground">
+                    {o.price}
+                  </span>
                 </div>
-              </div>
-            </article>
-          ))}
+
+                <div className="flex flex-1 flex-col p-4">
+                  <p className="text-[8px] font-bold uppercase tracking-[0.18em] text-primary">
+                    {o.tag}
+                  </p>
+                  <h2 className="mt-1 font-display text-base font-bold leading-snug text-foreground">
+                    {o.title}
+                  </h2>
+                  <p className="mt-1.5 flex-1 text-xs leading-relaxed text-muted-foreground">
+                    {o.desc}
+                  </p>
+
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    <Link
+                      to="/reserve"
+                      className="inline-flex items-center gap-1 rounded border border-border px-2.5 py-1.5 text-[9px] font-bold uppercase tracking-[0.14em] text-foreground transition hover:border-primary hover:text-primary"
+                    >
+                      Book
+                      <ArrowRight size={10} />
+                    </Link>
+                    <a
+                      href={ORDER_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 rounded border border-border px-2.5 py-1.5 text-[9px] font-bold uppercase tracking-[0.14em] text-foreground transition hover:border-primary hover:text-primary"
+                    >
+                      Order
+                      <ExternalLink size={10} />
+                    </a>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="border-t border-border/60 bg-card/40">
-        <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 px-6 py-16 md:flex-row md:items-center">
-          <div>
-            <h2 className="font-display text-4xl text-foreground">Planning a wedding, puja or office lunch?</h2>
-            <p className="mt-2 max-w-xl text-foreground/70">From 20 to 500 guests — we cater across Utah Valley with full sadhya menus, live dosa counters and chai stations.</p>
+      <section className="border-t border-border bg-secondary/40 py-12">
+        <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 px-6 sm:flex-row sm:items-center">
+          <div className="max-w-lg">
+            <h2 className="font-display text-2xl font-extrabold text-foreground sm:text-3xl">
+              Planning a party or office lunch?
+            </h2>
+            <p className="mt-2 text-sm text-muted-foreground">
+              From 20 to 500 guests — tandoori platters, biryani feasts and full menus.
+            </p>
           </div>
-          <Link to="/contact" className="rounded-sm bg-primary px-7 py-4 text-xs font-semibold uppercase tracking-[0.25em] text-primary-foreground">Request a Quote</Link>
+          <Link
+            to="/contact"
+            className="inline-flex shrink-0 items-center gap-2 rounded-md bg-primary px-6 py-3 text-[10px] font-bold uppercase tracking-[0.2em] text-primary-foreground transition hover:brightness-110"
+          >
+            Request a Quote
+            <ArrowRight size={12} />
+          </Link>
         </div>
       </section>
     </>
