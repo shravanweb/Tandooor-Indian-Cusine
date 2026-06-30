@@ -202,9 +202,9 @@ function HomePage() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
               <div className="absolute bottom-5 left-5 rounded-md border border-white/15 bg-black/40 px-4 py-2 backdrop-blur-sm">
-                <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-primary">
+                {/* <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-primary">
                   Since opening in Provo
-                </p>
+                </p> */}
                 <p className="mt-0.5 text-sm font-semibold text-white">Authentic Indian dining</p>
               </div>
             </div>
